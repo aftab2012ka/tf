@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tuba Foundation Gokak</title>
+    <script>
+      // Single Page App redirect for GitHub Pages
+      (function () {
+        var pathSegmentsToKeep = 1;
+        var l = window.location;
+        var isGitHubPages = l.hostname.indexOf('github.io') > -1;
+        var pathArray = l.pathname.split('/').filter(Boolean);
+        
+        // If hosted on GitHub Pages subfolder (e.g. username.github.io/repo-name/...)
+        var repoSegment = isGitHubPages && pathArray.length > 0 ? '/' + pathArray[0] : '';
+        var remainingRoute = isGitHubPages ? pathArray.slice(1).join('/') : pathArray.join('/');
+        
+        var target =
+          l.protocol +
+          '//' +
+          l.host +
+          repoSegment +
+          '/#' +
+          (remainingRoute ? '/' + remainingRoute : '') +
+          (l.search ? l.search : '') +
+          l.hash;
+          
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body>
+    <div style="font-family: sans-serif; text-align: center; padding: 40px; color: #1f2937;">
+      <h2>Loading Tuba Foundation Gokak...</h2>
+      <p>If you are not redirected automatically, please <a href="./">click here</a>.</p>
+    </div>
+  </body>
+</html>
