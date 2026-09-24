@@ -1,0 +1,379 @@
+{
+  "entities": {
+    "Admission": {
+      "title": "Admission",
+      "description": "Student admission application for Tuba Foundation vocational and educational courses",
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string",
+          "description": "Unique human-readable application identifier, e.g. TF-ADM-XXXXX",
+          "maxLength": 64
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full name of the applicant",
+          "maxLength": 120
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender of applicant",
+          "enum": ["Male", "Female", "Other"]
+        },
+        "age": {
+          "type": "string",
+          "description": "Applicant age",
+          "maxLength": 10
+        },
+        "qualification": {
+          "type": "string",
+          "description": "Highest education qualification",
+          "maxLength": 100
+        },
+        "course": {
+          "type": "string",
+          "description": "Selected course name",
+          "maxLength": 120
+        },
+        "address": {
+          "type": "string",
+          "description": "Address of the applicant",
+          "maxLength": 500
+        },
+        "mobile": {
+          "type": "string",
+          "description": "10-digit mobile phone number",
+          "maxLength": 20
+        },
+        "email": {
+          "type": "string",
+          "description": "Applicant email address",
+          "maxLength": 120
+        },
+        "language": {
+          "type": "string",
+          "description": "Preferred language for instruction",
+          "maxLength": 50
+        },
+        "message": {
+          "type": "string",
+          "description": "Optional additional message or remarks",
+          "maxLength": 1000
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of admission application",
+          "enum": ["New", "Reviewing", "Approved", "Rejected", "Completed"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Submission ISO date string",
+          "maxLength": 50
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last updated ISO date string",
+          "maxLength": 50
+        }
+      },
+      "required": ["applicationId", "fullName", "gender", "qualification", "course", "address", "mobile", "status"]
+    },
+    "SeeratParticipant": {
+      "title": "SeeratParticipant",
+      "description": "Participant registration for Seerat Exam and educational programs",
+      "type": "object",
+      "properties": {
+        "registrationId": {
+          "type": "string",
+          "description": "Unique registration ID, e.g. TF-SRT-XXXXX",
+          "maxLength": 64
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full name of the participant",
+          "maxLength": 120
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender of the participant",
+          "enum": ["Male", "Female", "Other"]
+        },
+        "age": {
+          "type": "string",
+          "description": "Participant age",
+          "maxLength": 10
+        },
+        "qualification": {
+          "type": "string",
+          "description": "Educational qualification",
+          "maxLength": 100
+        },
+        "study": {
+          "type": "string",
+          "description": "Current study / occupation",
+          "maxLength": 120
+        },
+        "marriageStatus": {
+          "type": "string",
+          "description": "Marital status",
+          "enum": ["Unmarried", "Married", "Other"]
+        },
+        "address": {
+          "type": "string",
+          "description": "Full residential address",
+          "maxLength": 500
+        },
+        "mobile": {
+          "type": "string",
+          "description": "Mobile contact number",
+          "maxLength": 20
+        },
+        "language": {
+          "type": "string",
+          "description": "Preferred language of examination/material",
+          "maxLength": 50
+        },
+        "paymentMode": {
+          "type": "string",
+          "description": "Payment mode for registration fee if any",
+          "enum": ["UPI", "Cash", "Other"]
+        },
+        "paymentReference": {
+          "type": "string",
+          "description": "Transaction reference ID",
+          "maxLength": 100
+        },
+        "status": {
+          "type": "string",
+          "description": "Registration status",
+          "enum": ["Registered", "Payment Pending", "Confirmed", "Attended", "Completed", "Cancelled"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Registration ISO timestamp",
+          "maxLength": 50
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last updated ISO timestamp",
+          "maxLength": 50
+        }
+      },
+      "required": ["registrationId", "fullName", "gender", "qualification", "study", "marriageStatus", "address", "mobile", "language", "paymentMode", "status"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "Foundation work gallery media item (photo or video)",
+      "type": "object",
+      "properties": {
+        "mediaType": {
+          "type": "string",
+          "description": "Media format",
+          "enum": ["photo", "video"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Media title or caption heading",
+          "maxLength": 150
+        },
+        "caption": {
+          "type": "string",
+          "description": "Detailed caption describing the work",
+          "maxLength": 500
+        },
+        "category": {
+          "type": "string",
+          "description": "Program category",
+          "maxLength": 80
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "Direct URL to image or video stream",
+          "maxLength": 1000
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "description": "Optional thumbnail preview URL",
+          "maxLength": 1000
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of the event or activity",
+          "maxLength": 50
+        },
+        "published": {
+          "type": "boolean",
+          "description": "Visibility flag for public display"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp",
+          "maxLength": 50
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp",
+          "maxLength": 50
+        }
+      },
+      "required": ["mediaType", "title", "caption", "category", "mediaUrl", "published"]
+    },
+    "DonationSettings": {
+      "title": "DonationSettings",
+      "description": "Bank account and UPI details for donor contributions",
+      "type": "object",
+      "properties": {
+        "accountName": {
+          "type": "string",
+          "description": "Official account name",
+          "maxLength": 150
+        },
+        "bankName": {
+          "type": "string",
+          "description": "Bank name",
+          "maxLength": 100
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Account number",
+          "maxLength": 50
+        },
+        "ifsc": {
+          "type": "string",
+          "description": "IFSC code",
+          "maxLength": 30
+        },
+        "branch": {
+          "type": "string",
+          "description": "Bank branch name",
+          "maxLength": 100
+        },
+        "upiId": {
+          "type": "string",
+          "description": "UPI handle",
+          "maxLength": 100
+        },
+        "qrImageUrl": {
+          "type": "string",
+          "description": "URL to UPI donation QR code image",
+          "maxLength": 1000
+        },
+        "contactInfo": {
+          "type": "string",
+          "description": "Donation inquiry contact details",
+          "maxLength": 300
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of last modification",
+          "maxLength": 50
+        }
+      },
+      "required": ["accountName", "bankName", "accountNumber", "ifsc", "branch"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Global foundation branding and contact settings",
+      "type": "object",
+      "properties": {
+        "foundationName": {
+          "type": "string",
+          "description": "Name of the organization",
+          "maxLength": 100
+        },
+        "tagline": {
+          "type": "string",
+          "description": "Foundation slogan or summary",
+          "maxLength": 200
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "Primary foundation inquiry email",
+          "maxLength": 100
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "Primary contact phone",
+          "maxLength": 50
+        },
+        "contactAddress": {
+          "type": "string",
+          "description": "Physical headquarters address",
+          "maxLength": 300
+        },
+        "logoUrl": {
+          "type": "string",
+          "description": "Optional custom logo URL",
+          "maxLength": 1000
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp",
+          "maxLength": 50
+        }
+      },
+      "required": ["foundationName", "contactEmail"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized administrator profile",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Admin email address",
+          "maxLength": 120
+        },
+        "role": {
+          "type": "string",
+          "description": "Role level",
+          "enum": ["superadmin", "admin"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp created",
+          "maxLength": 50
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/admissions/{admissionId}": {
+      "schema": {
+        "$ref": "#/entities/Admission"
+      },
+      "description": "Course admission applications submitted by prospective students"
+    },
+    "/seeratParticipants/{participantId}": {
+      "schema": {
+        "$ref": "#/entities/SeeratParticipant"
+      },
+      "description": "Seerat and educational program participant registrations"
+    },
+    "/gallery/{mediaId}": {
+      "schema": {
+        "$ref": "#/entities/GalleryItem"
+      },
+      "description": "Photos and videos highlighting foundation work and activities"
+    },
+    "/donationSettings/{settingId}": {
+      "schema": {
+        "$ref": "#/entities/DonationSettings"
+      },
+      "description": "Editable bank and donation settings managed by foundation administration"
+    },
+    "/siteSettings/{settingId}": {
+      "schema": {
+        "$ref": "#/entities/SiteSettings"
+      },
+      "description": "Site-wide configuration and contact info"
+    },
+    "/admins/{adminUid}": {
+      "schema": {
+        "$ref": "#/entities/AdminUser"
+      },
+      "description": "Authorized administrators list verified for elevated management access"
+    }
+  }
+}

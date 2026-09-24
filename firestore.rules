@@ -1,0 +1,110 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny all by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'aftab2012ka@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Admissions validation
+    function isValidAdmission(data) {
+      return data.keys().hasAll(['applicationId', 'fullName', 'gender', 'qualification', 'course', 'address', 'mobile', 'status']) &&
+        data.applicationId is string && data.applicationId.size() <= 64 &&
+        data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 120 &&
+        data.gender in ['Male', 'Female', 'Other'] &&
+        data.qualification is string && data.qualification.size() <= 100 &&
+        data.course is string && data.course.size() <= 120 &&
+        data.address is string && data.address.size() <= 500 &&
+        data.mobile is string && data.mobile.size() >= 7 && data.mobile.size() <= 20 &&
+        data.status in ['New', 'Reviewing', 'Approved', 'Rejected', 'Completed'];
+    }
+
+    // Seerat Participant validation
+    function isValidParticipant(data) {
+      return data.keys().hasAll(['registrationId', 'fullName', 'gender', 'qualification', 'study', 'marriageStatus', 'address', 'mobile', 'language', 'paymentMode', 'status']) &&
+        data.registrationId is string && data.registrationId.size() <= 64 &&
+        data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 120 &&
+        data.gender in ['Male', 'Female', 'Other'] &&
+        data.qualification is string && data.qualification.size() <= 100 &&
+        data.study is string && data.study.size() <= 120 &&
+        data.marriageStatus in ['Unmarried', 'Married', 'Other'] &&
+        data.address is string && data.address.size() <= 500 &&
+        data.mobile is string && data.mobile.size() >= 7 && data.mobile.size() <= 20 &&
+        data.paymentMode in ['UPI', 'Cash', 'Other'] &&
+        data.status in ['Registered', 'Payment Pending', 'Confirmed', 'Attended', 'Completed', 'Cancelled'];
+    }
+
+    // Gallery item validation
+    function isValidGalleryItem(data) {
+      return data.keys().hasAll(['mediaType', 'title', 'caption', 'category', 'mediaUrl', 'published']) &&
+        data.mediaType in ['photo', 'video'] &&
+        data.title is string && data.title.size() <= 150 &&
+        data.caption is string && data.caption.size() <= 500 &&
+        data.category is string && data.category.size() <= 80 &&
+        data.mediaUrl is string && data.mediaUrl.size() <= 1000 &&
+        data.published is bool;
+    }
+
+    // Admissions collection
+    match /admissions/{admissionId} {
+      allow create: if isValidId(admissionId) && isValidAdmission(incoming());
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Seerat Participants collection
+    match /seeratParticipants/{participantId} {
+      allow create: if isValidId(participantId) && isValidParticipant(incoming());
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Gallery collection - publicly readable for foundation community gallery; writes restricted to admin
+    match /gallery/{mediaId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Donation settings collection
+    match /donationSettings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Site settings collection
+    match /siteSettings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admins collection
+    match /admins/{adminUid} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() || (isSignedIn() && request.auth.token.email == 'aftab2012ka@gmail.com');
+    }
+  }
+}

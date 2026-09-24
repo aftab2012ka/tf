@@ -1,0 +1,6 @@
+{
+  "name": "Tuba Foundation Gokak",
+  "description": "Empowering individuals and the community through computer education, vocational tailoring, beauty and wellness skills, and educational programs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
