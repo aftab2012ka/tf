@@ -47,7 +47,7 @@ export const INITIAL_GALLERY_ITEMS: GalleryItem[] = [
     title: 'Seerat & Ethical Education Assembly',
     caption: 'Annual educational gathering and Seerat competition award distribution for students in Gokak.',
     category: 'Seerat & Programs',
-    mediaUrl: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1000&auto=format&fit=crop&q=80',
+    mediaUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVluHqTnZ8s_09AgTCjoA02YAAKY1z43-Kn8N3TLOUJw&s=10',
     published: true,
     date: '2026-07-25',
     createdAt: '2026-07-25T10:00:00.000Z',
